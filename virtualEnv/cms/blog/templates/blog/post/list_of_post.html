@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}List of Blog Posts{% endblock %}
+
+{% block content %}
+<h2>Blog Posts</h2>
+{% for post in posts %}
+    <article>
+        <h3><a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a></h3>
+        <p><strong>Author:</strong> {{ post.author }}</p>
+        <p><strong>Published on:</strong> {{ post.published }}</p>
+        <p>{{ post.content|truncatewords:40 }}</p>
+        <a href="{% url 'post_detail' slug=post.slug %}">Read more</a>
+    </article>
+    <hr>
+{% endfor %}
+{% endblock %}
