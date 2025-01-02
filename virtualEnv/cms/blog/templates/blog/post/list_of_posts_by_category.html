@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Posts in {{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-white bg-primary p-3 rounded">Posts in {{ category.name }}</h2>
+    <div class="row mt-4">
+        {% for post in posts %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'post_detail' slug=post.slug %}" class="text-decoration-none text-dark">
+                                {{ post.title }}
+                            </a>
+                        </h5>
+                        <p class="card-text">{{ post.content|truncatewords:40 }}</p>
+                        <a href="{% url 'post_detail' slug=post.slug %}" class="btn btn-primary mt-3">Read More</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% empty %}
+        <p class="text-muted">No posts available in this category.</p>
+    {% endfor %}
+
+    <a href="{% url 'list_of_posts' %}" class="btn btn-secondary mt-4">Back to All Posts</a>
+</div>
+{% endblock %}
